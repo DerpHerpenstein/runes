@@ -1,5 +1,12 @@
 const helpers = require("./helpers")
 
+const bufferPrefix = Buffer.from("R");
+const opCodeBuffers = {
+    "transfer": helpers.encodeUint(3),
+    "mint": helpers.encodeUint(2),
+    "deploy": helpers.encodeUint(1)
+}
+
 /////////////////////////
 //
 /////////////////////////
@@ -78,6 +85,57 @@ function decodeTransfer(transferBuffer){
 }
 
 
+function generateOp(name, data){
+    let tmpBuffer = Buffer.from("");
+    let zeroBuffer = Buffer([0x00]);
+    if(name === "transfer"){
+        tmpBuffer = generateTransfer(data);
+    }
+    else if(name === "mint"){
+        tmpBuffer = generateMint(data);
+    }
+    else if(name === "deploy"){
+        tmpBuffer = generateDeploy(data);
+    }
+    tmpBuffer = Buffer.concat([bufferPrefix, opCodeBuffers[name], tmpBuffer])
+    
+    while(tmpBuffer.length < 80)
+        tmpBuffer = Buffer.concat([tmpBuffer, zeroBuffer])
+    
+    return tmpBuffer
+}
 
-module.exports = {generateDeploy, decodeDeploy, generateMint, decodeMint,  generateTransfer, decodeTransfer}
+function decodeOp(opBuffer){
+    if(opBuffer[0] == bufferPrefix[0]){
+        // remove the trailing zeros
+        let lastZero = opBuffer.length-1;
+        while(opBuffer[lastZero] == 0)
+            lastZero -=1;
+        opBuffer = opBuffer.slice(0,lastZero+1);
+        let op = "error";
+        let data;
+
+        if(opBuffer[1]  == opCodeBuffers["transfer"][0]){
+            op = "transfer";
+            data = decodeTransfer(opBuffer.slice(2))
+        }
+        
+        else if(opBuffer[1]  == opCodeBuffers["mint"][0]){
+            op = "mint";
+            data = decodeMint(opBuffer.slice(2))
+        }
+
+        else if(opBuffer[1]  == opCodeBuffers["deploy"][0]){
+            op = "deploy";
+            data = decodeDeploy(opBuffer.slice(2))
+        }
+        return {
+            op: op,
+            data: data
+        }
+    }
+}
+
+
+module.exports = {generateDeploy, decodeDeploy, generateMint, decodeMint,  generateTransfer, decodeTransfer, generateOp, decodeOp}
 

@@ -87,3 +87,18 @@ let transferArray = [
     }
 ]
 testTransfer(transferArray);
+
+tmpTransfer = runes.generateOp("transfer", transferArray);
+tmpMint = runes.generateOp("mint", mintObject);
+tmpDeploy = runes.generateOp("deploy", deployObject);
+
+console.log(tmpTransfer);
+console.log( runes.decodeOp(tmpTransfer) );
+
+console.log(tmpMint);
+console.log( runes.decodeOp(tmpMint) );
+
+console.log(tmpDeploy);
+console.log( runes.decodeOp(tmpDeploy) );
+
+
