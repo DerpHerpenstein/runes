@@ -1,0 +1,15 @@
+{
+  "name": "prunes",
+  "version": "0.0.1",
+  "description": "A new token standard on bitcoin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "base26": "^0.1.0",
+    "leb128": "^0.0.5"
+  }
+}
