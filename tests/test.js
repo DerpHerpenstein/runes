@@ -1,5 +1,5 @@
-const helpers = require("./src/helpers")
-const runes = require("./src/runes")
+const helpers = require("../src/helpers")
+const runes = require("../src/runes")
 
 function testSymbolEncodeDecode(symbol){
     if(symbol !== helpers.decodeSymbol(helpers.encodeSymbol(symbol)))
@@ -52,6 +52,7 @@ function testTransfer(transferArray){
 testSymbolEncodeDecode("test");
 testUintEncodeDecode("123");
 
+
 let deployObject = {
     symbol: 'derp',
     maxSupply: '69000000000000',
@@ -62,12 +63,16 @@ let deployObject = {
   }
 testDeploy(deployObject);
 
+
+
 let mintObject = {
     symbolIndex: '1',
     output: '1',
     amount: '1234'
 }
 testMint(mintObject);
+
+
 
 let transferArray = [
     {
