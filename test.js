@@ -28,7 +28,6 @@ function testDeploy(deployObject){
 
 
 function testMint(mintObject){
-
     let mintBuffer = runes.generateMint(mintObject);
     let returnedObject = (runes.decodeMint(mintBuffer));
     if(JSON.stringify(mintObject) !== JSON.stringify(returnedObject))
@@ -37,6 +36,14 @@ function testMint(mintObject){
         console.log("TEST: Mint Object Encode/decode - GOOD")
 }
 
+function testTransfer(transferArray){
+    let transferBuffer = runes.generateTransfer(transferArray);
+    let returnedObject = (runes.decodeTransfer(transferBuffer));
+    if(JSON.stringify(transferArray) !== JSON.stringify(returnedObject))
+        throw new Error("transfer Object not properly encoded/decoded");
+    else
+        console.log("TEST: transfer Object Encode/decode - GOOD")
+}
 
 
 
@@ -61,3 +68,17 @@ let mintObject = {
     amount: '1234'
 }
 testMint(mintObject);
+
+let transferArray = [
+    {
+        symbolIndex: '1',
+        output: '1',
+        amount: '1234'
+    },
+    {
+        symbolIndex: '1',
+        output: '2',
+        amount: '321'
+    }
+]
+testTransfer(transferArray);

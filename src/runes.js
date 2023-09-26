@@ -49,6 +49,35 @@ function decodeMint(mintBuffer){
 }
 
 
+function generateTransfer(transferArray){
+    let finalBuffer = Buffer.from("");
+    transferArray.forEach((transferObject) => {
+        let encodedSymbolIndex = helpers.encodeUint(transferObject.symbolIndex.toString());
+        let encodedOutput = helpers.encodeUint(transferObject.output.toString());
+        let encodedAmount = helpers.encodeUint(transferObject.amount.toString());
+        finalBuffer = Buffer.concat([finalBuffer, encodedSymbolIndex, encodedOutput, encodedAmount])
+    })
 
-module.exports = {generateDeploy, decodeDeploy, generateMint, decodeMint}
+    return finalBuffer;
+}
+
+
+
+function decodeTransfer(transferBuffer){
+    let params = helpers.decodeBuffer(transferBuffer);
+    let outputArray = []
+    for(let i=0; i< params.length;){
+        outputArray.push({
+            symbolIndex: helpers.decodeUint(params[i]),
+            output: helpers.decodeUint(params[i+1]),
+            amount: helpers.decodeUint(params[i+2])
+        });
+        i+=3;
+    }
+    return outputArray;
+}
+
+
+
+module.exports = {generateDeploy, decodeDeploy, generateMint, decodeMint,  generateTransfer, decodeTransfer}
 
