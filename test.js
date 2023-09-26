@@ -27,6 +27,15 @@ function testDeploy(deployObject){
 }
 
 
+function testMint(mintObject){
+
+    let mintBuffer = runes.generateMint(mintObject);
+    let returnedObject = (runes.decodeMint(mintBuffer));
+    if(JSON.stringify(mintObject) !== JSON.stringify(returnedObject))
+        throw new Error("Mint Object not properly encoded/decoded");
+    else
+        console.log("TEST: Mint Object Encode/decode - GOOD")
+}
 
 
 
@@ -36,7 +45,7 @@ function testDeploy(deployObject){
 testSymbolEncodeDecode("test");
 testUintEncodeDecode("123");
 
-let deployObject= {
+let deployObject = {
     symbol: 'derp',
     maxSupply: '69000000000000',
     maxMint: '10000000',
@@ -45,3 +54,10 @@ let deployObject= {
     mode: '0'
   }
 testDeploy(deployObject);
+
+let mintObject = {
+    symbolIndex: '1',
+    output: '1',
+    amount: '1234'
+}
+testMint(mintObject);
