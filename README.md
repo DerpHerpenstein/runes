@@ -1,5 +1,6 @@
 # RUNES Specification
 #### By [Derp Herpenstein](https://twitter.com/0xDerpNation) --- [DerpNation](https://www.derpnation.xyz/)
+#### Note: I started writing code to play with this and the little bit I have for encodin/decoding is here
 
 ## Introduction
  The current suggested implementation of RUNE by [Casey Rodarmor](https://rodarmor.com/blog/runes/) helps to solve the UTXO bloat issue associated with the BRC-20 standard, while not addressing the underlying reason why such a standard should exist in the first place. This standard should be simple to implement, but extendable enough to allow for the creation of a large variety of functionality. Now is the time for a token standard that allows for the creation of DeFi primitives directly on layer 1 of the Bitcoin blockchain. Not only is this possible, if we collectively take a few minutes before aping into a schema, we can create a system that allows bitcoin L1 DeFi to compete with ethereum.  We can create AMMs, Loan Providers and even Governance, all on Bitcoin L1 by using social consensus with this new token standard.
