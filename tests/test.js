@@ -55,11 +55,11 @@ testUintEncodeDecode("123");
 
 let deployObject = {
     symbol: 'derp',
-    maxSupply: '69000000000000',
+    maxSupply: '69000',
     maxMint: '10000000',
-    initialSupply: '42000000000000',
+    initialSupply: '42000',
     output: '1',
-    mode: '0'
+    mode: '2'
   }
 testDeploy(deployObject);
 
